@@ -4562,20 +4562,26 @@
                             <groupfilter function='level-members' level='[risk_level]' />
                           </groupfilter>
                         </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:customer_gender:nk]'>
-                          <groupfilter function='member' level='[none:customer_gender:nk]' member='&quot;M&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]'>
+                          <groupfilter function='member' level='[none:age_range:nk]' member='&quot;1-18&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
+                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;A1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:cus_marital_status:nk]'>
+                          <groupfilter function='member' level='[none:cus_marital_status:nk]' member='&quot;00 NA&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
                         </filter>
                       </worksheet>
                       <worksheet name='Premium 17/18'>
                         <datasource-dependencies datasource='federated.0gr22ay1j849r415qji8i1k2lpsl'>
-                          <column caption='Action (YEAR(Campaign Offer Date),Campaign Offer Product)' datatype='tuple' hidden='true' name='[Action (YEAR(Campaign Offer Date),Campaign Offer Product)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
-                          <column caption='Action (YEAR(Campaign Offer Date),Risk Level)' datatype='tuple' hidden='true' name='[Action (YEAR(Campaign Offer Date),Risk Level)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
-                          <column caption='Action (Offer Score (bin),risk_level)' datatype='tuple' hidden='true' name='[Action (Offer Score (bin),risk_level)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
                           <column caption='Offer Score' datatype='real' name='[offer_score]' role='measure' type='quantitative' />
-                          <column caption='Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)' datatype='tuple' hidden='true' name='[Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
                           <column aggregation='None' datatype='integer' name='[Offer Score (bin)]' role='dimension' type='quantitative'>
                             <calculation class='bin' decimals='0' formula='[offer_score]' peg='0' size='3.3' />
                           </column>
+                          <column caption='Action (YEAR(Campaign Offer Date),Risk Level)' datatype='tuple' hidden='true' name='[Action (YEAR(Campaign Offer Date),Risk Level)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
+                          <column caption='Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)' datatype='tuple' hidden='true' name='[Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
+                          <column caption='Action (Offer Score (bin),risk_level)' datatype='tuple' hidden='true' name='[Action (Offer Score (bin),risk_level)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
+                          <column caption='Action (YEAR(Campaign Offer Date),Campaign Offer Product)' datatype='tuple' hidden='true' name='[Action (YEAR(Campaign Offer Date),Campaign Offer Product)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
                           <column-instance column='[Offer Score (bin)]' derivation='None' name='[none:Offer Score (bin):ok]' pivot='key' type='ordinal' />
                         </datasource-dependencies>
                         <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)]'>
@@ -4603,8 +4609,14 @@
                             <groupfilter function='level-members' level='[risk_level]' />
                           </groupfilter>
                         </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:customer_gender:nk]'>
-                          <groupfilter function='member' level='[none:customer_gender:nk]' member='&quot;M&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]'>
+                          <groupfilter function='member' level='[none:age_range:nk]' member='&quot;1-18&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
+                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;A1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:cus_marital_status:nk]'>
+                          <groupfilter function='member' level='[none:cus_marital_status:nk]' member='&quot;00 NA&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
                         </filter>
                       </worksheet>
                       <worksheet name='Prod 17/18'>
@@ -4620,17 +4632,23 @@
                             <groupfilter function='level-members' level='[risk_level]' />
                           </groupfilter>
                         </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:customer_gender:nk]'>
-                          <groupfilter function='member' level='[none:customer_gender:nk]' member='&quot;M&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]'>
+                          <groupfilter function='member' level='[none:age_range:nk]' member='&quot;1-18&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
+                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;A1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:cus_marital_status:nk]'>
+                          <groupfilter function='member' level='[none:cus_marital_status:nk]' member='&quot;00 NA&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
                         </filter>
                       </worksheet>
                       <worksheet name='Risk bubble - 1'>
                         <datasource-dependencies datasource='federated.0gr22ay1j849r415qji8i1k2lpsl'>
                           <column caption='Offer Score' datatype='real' name='[offer_score]' role='measure' type='quantitative' />
-                          <column caption='Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)' datatype='tuple' hidden='true' name='[Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
                           <column aggregation='None' datatype='integer' name='[Offer Score (bin)]' role='dimension' type='quantitative'>
                             <calculation class='bin' decimals='0' formula='[offer_score]' peg='0' size='3.3' />
                           </column>
+                          <column caption='Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)' datatype='tuple' hidden='true' name='[Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
                           <column-instance column='[Offer Score (bin)]' derivation='None' name='[none:Offer Score (bin):ok]' pivot='key' type='ordinal' />
                         </datasource-dependencies>
                         <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)]'>
@@ -4647,8 +4665,14 @@
                             <groupfilter function='level-members' level='[campaign_take_up]' />
                           </groupfilter>
                         </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:customer_gender:nk]'>
-                          <groupfilter function='member' level='[none:customer_gender:nk]' member='&quot;M&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]'>
+                          <groupfilter function='member' level='[none:age_range:nk]' member='&quot;1-18&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
+                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;A1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:cus_marital_status:nk]'>
+                          <groupfilter function='member' level='[none:cus_marital_status:nk]' member='&quot;00 NA&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
                         </filter>
                       </worksheet>
                       <worksheet name='Risk dist 1'>
@@ -4716,8 +4740,14 @@
                             <groupfilter function='level-members' level='[risk_level]' />
                           </groupfilter>
                         </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:customer_gender:nk]'>
-                          <groupfilter function='member' level='[none:customer_gender:nk]' member='&quot;M&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]'>
+                          <groupfilter function='member' level='[none:age_range:nk]' member='&quot;1-18&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
+                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;A1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:cus_marital_status:nk]'>
+                          <groupfilter function='member' level='[none:cus_marital_status:nk]' member='&quot;00 NA&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
                         </filter>
                       </worksheet>
                       <worksheet name='Y - 2017 (10%)'>
@@ -4739,8 +4769,14 @@
                             <groupfilter function='level-members' level='[risk_level]' />
                           </groupfilter>
                         </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:customer_gender:nk]'>
-                          <groupfilter function='member' level='[none:customer_gender:nk]' member='&quot;M&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]'>
+                          <groupfilter function='member' level='[none:age_range:nk]' member='&quot;1-18&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
+                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;A1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:cus_marital_status:nk]'>
+                          <groupfilter function='member' level='[none:cus_marital_status:nk]' member='&quot;00 NA&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
                         </filter>
                       </worksheet>
                       <worksheet name='Y - 2018 (15%)'>
@@ -4762,8 +4798,14 @@
                             <groupfilter function='level-members' level='[risk_level]' />
                           </groupfilter>
                         </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:customer_gender:nk]'>
-                          <groupfilter function='member' level='[none:customer_gender:nk]' member='&quot;M&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]'>
+                          <groupfilter function='member' level='[none:age_range:nk]' member='&quot;1-18&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
+                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;A1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:cus_marital_status:nk]'>
+                          <groupfilter function='member' level='[none:cus_marital_status:nk]' member='&quot;00 NA&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
                         </filter>
                       </worksheet>
                     </capturedDeltas>
@@ -5236,7 +5278,7 @@
     </window>
     <window class='dashboard' maximized='true' name='Story All'>
       <viewpoints />
-      <active id='-1' />
+      <active id='5' />
       <simple-id uuid='{5AC60B6C-E165-439C-B519-38A3B9B69109}' />
     </window>
     <window class='dashboard' name='Dashboard 1'>
