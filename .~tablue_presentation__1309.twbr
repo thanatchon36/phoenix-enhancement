@@ -579,6 +579,7 @@
       <column-instance column='[campaign_offer_product]' derivation='None' name='[none:campaign_offer_product:nk]' pivot='key' type='nominal' />
       <column-instance column='[campaign_take_up]' derivation='None' name='[none:campaign_take_up:nk]' pivot='key' type='nominal' />
       <column-instance column='[cus_marital_status]' derivation='None' name='[none:cus_marital_status:nk]' pivot='key' type='nominal' />
+      <column-instance column='[is_holding]' derivation='None' name='[none:is_holding:nk]' pivot='key' type='nominal' />
       <column-instance column='[risk_level]' derivation='None' name='[none:risk_level:nk]' pivot='key' type='nominal' />
       <column-instance column='[campaign_offer_date]' derivation='Year-Trunc' name='[tyr:campaign_offer_date:ok]' pivot='key' type='ordinal' />
       <column-instance column='[campaign_offer_date]' derivation='Year' name='[yr:campaign_offer_date:ok]' pivot='key' type='ordinal' />
@@ -694,6 +695,12 @@
         <groupfilter function='crossjoin'>
           <groupfilter function='level-members' level='[yr:campaign_offer_date:ok]' />
           <groupfilter function='level-members' level='[campaign_offer_product]' />
+        </groupfilter>
+      </group>
+      <group caption='Action (YEAR(Campaign Offer Date),Is Holding)' hidden='true' name='[Action (YEAR(Campaign Offer Date),Is Holding)]' name-style='unqualified' user:auto-column='sheet_link'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[yr:campaign_offer_date:ok]' />
+          <groupfilter function='level-members' level='[is_holding]' />
         </groupfilter>
       </group>
       <group caption='Action (YEAR(Campaign Offer Date),Risk Level)' hidden='true' name='[Action (YEAR(Campaign Offer Date),Risk Level)]' name-style='unqualified' user:auto-column='sheet_link'>
@@ -830,6 +837,14 @@
               <bucket>&quot;N&quot;</bucket>
             </map>
           </encoding>
+          <encoding attr='color' field='[none:is_holding:nk]' type='palette'>
+            <map to='#b07aa1'>
+              <bucket>true</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>false</bucket>
+            </map>
+          </encoding>
         </style-rule>
       </style>
       <semantic-values>
@@ -945,6 +960,54 @@
       <command command='tsc:tsl-filter'>
         <param name='special-fields' value='all' />
         <param name='target' value='Dashboard 1' />
+      </command>
+    </action>
+    <action caption='Filter 12 (generated)' name='[Action12]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Dash Board 3' type='sheet' worksheet='product holding' />
+      <command command='tsc:tsl-filter'>
+        <param name='special-fields' value='all' />
+        <param name='target' value='Dash Board 3' />
+      </command>
+    </action>
+    <action caption='Filter 6 (generated) 1' name='[Action13]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Dash Board 3' type='sheet' worksheet='Risk bubble - 2' />
+      <command command='tsc:tsl-filter'>
+        <param name='special-fields' value='all' />
+        <param name='target' value='Dash Board 3' />
+      </command>
+    </action>
+    <action caption='Filter 2 (generated) 1' name='[Action14]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Dash Board 3' type='sheet' worksheet='Age distribution' />
+      <command command='tsc:tsl-filter'>
+        <param name='special-fields' value='all' />
+        <param name='target' value='Dash Board 3' />
+      </command>
+    </action>
+    <action caption='Filter 5 (generated) 1' name='[Action15]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Dash Board 3' type='sheet' worksheet='Status Color' />
+      <command command='tsc:tsl-filter'>
+        <param name='special-fields' value='all' />
+        <param name='target' value='Dash Board 3' />
+      </command>
+    </action>
+    <action caption='Filter 7 (generated) 1' name='[Action16]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Dash Board 3' type='sheet' worksheet='Premium 17/18 - 2' />
+      <command command='tsc:tsl-filter'>
+        <param name='special-fields' value='all' />
+        <param name='target' value='Dash Board 3' />
+      </command>
+    </action>
+    <action caption='Filter 13 (generated)' name='[Action17]'>
+      <activation auto-clear='true' type='on-select' />
+      <source dashboard='Dash Board 3' type='sheet' worksheet='Enhancement 17/18' />
+      <command command='tsc:tsl-filter'>
+        <param name='special-fields' value='all' />
+        <param name='target' value='Dash Board 3' />
       </command>
     </action>
     <action caption='Filter 1 (generated)' name='[Action1]'>
@@ -1735,6 +1798,12 @@
               <groupfilter function='level-members' level='[campaign_offer_product]' />
             </groupfilter>
           </filter>
+          <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (YEAR(Campaign Offer Date),Risk Level)]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action13]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[yr:campaign_offer_date:ok]' />
+              <groupfilter function='level-members' level='[risk_level]' />
+            </groupfilter>
+          </filter>
           <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:2018_15_2017_10:nk]'>
             <groupfilter function='member' level='[none:2018_15_2017_10:nk]' member='true' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
           </filter>
@@ -1753,10 +1822,14 @@
             <column>[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_percent:nk]</column>
             <column>[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:risk_level:nk]</column>
             <column>[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_take_up:nk]</column>
+            <column>[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (YEAR(Campaign Offer Date),Risk Level)]</column>
           </slices>
           <aggregation value='true' />
         </view>
         <style>
+          <style-rule element='cell'>
+            <format attr='height' field='[federated.0gr22ay1j849r415qji8i1k2lpsl].[yr:campaign_offer_date:ok]' value='94' />
+          </style-rule>
           <style-rule element='field-labels'>
             <format attr='font-size' value='8' />
           </style-rule>
@@ -1789,11 +1862,15 @@
                 <format attr='mark-labels-cull' value='true' />
                 <format attr='size' value='0.64767956733703613' />
               </style-rule>
+              <style-rule element='pane'>
+                <format attr='minheight' value='-1' />
+                <format attr='maxheight' value='-1' />
+              </style-rule>
             </style>
           </pane>
         </panes>
-        <rows />
-        <cols>[federated.0gr22ay1j849r415qji8i1k2lpsl].[yr:campaign_offer_date:ok]</cols>
+        <rows>[federated.0gr22ay1j849r415qji8i1k2lpsl].[yr:campaign_offer_date:ok]</rows>
+        <cols />
       </table>
       <simple-id uuid='{95E3C100-2806-431D-B7C7-420775001CC3}' />
     </worksheet>
@@ -4079,6 +4156,109 @@
       </table>
       <simple-id uuid='{6B35C641-356A-4F8F-9AED-BE3AD19A1CD3}' />
     </worksheet>
+    <worksheet name='product holding'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='defined_Data_Phoenix_Campaign_Enhancement' name='federated.0gr22ay1j849r415qji8i1k2lpsl' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0gr22ay1j849r415qji8i1k2lpsl'>
+            <column caption='2018 15 2017 10' datatype='boolean' name='[2018_15_2017_10]' role='dimension' type='nominal' />
+            <column caption='Age Range' datatype='string' name='[age_range]' role='dimension' type='nominal' />
+            <column caption='Annual Range' datatype='string' name='[annual_range]' role='dimension' type='nominal' />
+            <column caption='Campaign Offer Date' datatype='date' name='[campaign_offer_date]' role='dimension' type='ordinal' />
+            <column caption='Campaign Offer Percent' datatype='string' name='[campaign_offer_percent]' role='dimension' type='nominal' />
+            <column caption='Campaign Offer Product' datatype='string' name='[campaign_offer_product]' role='dimension' type='nominal' />
+            <column caption='Campaign Take Up' datatype='string' name='[campaign_take_up]' role='dimension' type='nominal' />
+            <column caption='cus ct A1 product holding' datatype='integer' name='[cus_ct_A1_product_holding]' role='measure' type='quantitative' />
+            <column caption='cus ct A2 product holding' datatype='integer' name='[cus_ct_A2_product_holding]' role='measure' type='quantitative' />
+            <column caption='cus ct C1 product holding' datatype='integer' name='[cus_ct_C1_product_holding]' role='measure' type='quantitative' />
+            <column caption='cus ct E1 product holding' datatype='integer' name='[cus_ct_E1_product_holding]' role='measure' type='quantitative' />
+            <column caption='cus ct H1 product holding' datatype='integer' name='[cus_ct_H1_product_holding]' role='measure' type='quantitative' />
+            <column caption='cus ct H2 product holding' datatype='integer' name='[cus_ct_H2_product_holding]' role='measure' type='quantitative' />
+            <column caption='Cus Marital Status' datatype='string' name='[cus_marital_status]' role='dimension' type='nominal' />
+            <column caption='Customer Gender' datatype='string' name='[customer_gender]' role='dimension' type='nominal' />
+            <column-instance column='[2018_15_2017_10]' derivation='None' name='[none:2018_15_2017_10:nk]' pivot='key' type='nominal' />
+            <column-instance column='[age_range]' derivation='None' name='[none:age_range:nk]' pivot='key' type='nominal' />
+            <column-instance column='[annual_range]' derivation='None' name='[none:annual_range:nk]' pivot='key' type='nominal' />
+            <column-instance column='[campaign_offer_percent]' derivation='None' name='[none:campaign_offer_percent:nk]' pivot='key' type='nominal' />
+            <column-instance column='[campaign_offer_product]' derivation='None' name='[none:campaign_offer_product:nk]' pivot='key' type='nominal' />
+            <column-instance column='[campaign_take_up]' derivation='None' name='[none:campaign_take_up:nk]' pivot='key' type='nominal' />
+            <column-instance column='[cus_marital_status]' derivation='None' name='[none:cus_marital_status:nk]' pivot='key' type='nominal' />
+            <column-instance column='[customer_gender]' derivation='None' name='[none:customer_gender:nk]' pivot='key' type='nominal' />
+            <column-instance column='[risk_level]' derivation='None' name='[none:risk_level:nk]' pivot='key' type='nominal' />
+            <column caption='Risk Level' datatype='string' name='[risk_level]' role='dimension' type='nominal' />
+            <column-instance column='[cus_ct_A1_product_holding]' derivation='Sum' name='[sum:cus_ct_A1_product_holding:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[cus_ct_A2_product_holding]' derivation='Sum' name='[sum:cus_ct_A2_product_holding:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[cus_ct_C1_product_holding]' derivation='Sum' name='[sum:cus_ct_C1_product_holding:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[cus_ct_E1_product_holding]' derivation='Sum' name='[sum:cus_ct_E1_product_holding:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[cus_ct_H1_product_holding]' derivation='Sum' name='[sum:cus_ct_H1_product_holding:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[cus_ct_H2_product_holding]' derivation='Sum' name='[sum:cus_ct_H2_product_holding:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[campaign_offer_date]' derivation='Year' name='[yr:campaign_offer_date:ok]' pivot='key' type='ordinal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.0gr22ay1j849r415qji8i1k2lpsl].[sum:cus_ct_A1_product_holding:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.0gr22ay1j849r415qji8i1k2lpsl].[sum:cus_ct_A2_product_holding:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.0gr22ay1j849r415qji8i1k2lpsl].[sum:cus_ct_C1_product_holding:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.0gr22ay1j849r415qji8i1k2lpsl].[sum:cus_ct_E1_product_holding:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.0gr22ay1j849r415qji8i1k2lpsl].[sum:cus_ct_H1_product_holding:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.0gr22ay1j849r415qji8i1k2lpsl].[sum:cus_ct_H2_product_holding:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (YEAR(Campaign Offer Date),Campaign Offer Percent,Campaign Take Up) 1]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action16]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[yr:campaign_offer_date:ok]' />
+              <groupfilter function='level-members' level='[campaign_offer_percent]' />
+              <groupfilter function='level-members' level='[campaign_take_up]' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (YEAR(Campaign Offer Date),Risk Level)]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action13]' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[yr:campaign_offer_date:ok]' member='2018' />
+              <groupfilter function='union'>
+                <groupfilter function='member' level='[risk_level]' member='&quot;Excellent&quot;' />
+                <groupfilter function='member' level='[risk_level]' member='&quot;Good&quot;' />
+                <groupfilter function='member' level='[risk_level]' member='&quot;Normal&quot;' />
+                <groupfilter function='member' level='[risk_level]' member='&quot;Risk&quot;' />
+                <groupfilter function='member' level='[risk_level]' member='&quot;Very Good&quot;' />
+                <groupfilter function='member' level='[risk_level]' member='&quot;Very Risk&quot;' />
+              </groupfilter>
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:2018_15_2017_10:nk]'>
+            <groupfilter function='member' level='[none:2018_15_2017_10:nk]' member='true' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]</column>
+            <column>[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:annual_range:nk]</column>
+            <column>[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_percent:nk]</column>
+            <column>[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]</column>
+            <column>[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_take_up:nk]</column>
+            <column>[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:cus_marital_status:nk]</column>
+            <column>[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:2018_15_2017_10:nk]</column>
+            <column>[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:customer_gender:nk]</column>
+            <column>[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:risk_level:nk]</column>
+            <column>[federated.0gr22ay1j849r415qji8i1k2lpsl].[:Measure Names]</column>
+            <column>[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (YEAR(Campaign Offer Date),Campaign Offer Percent,Campaign Take Up) 1]</column>
+            <column>[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (YEAR(Campaign Offer Date),Risk Level)]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows>[federated.0gr22ay1j849r415qji8i1k2lpsl].[:Measure Names]</rows>
+        <cols>([federated.0gr22ay1j849r415qji8i1k2lpsl].[yr:campaign_offer_date:ok] * [federated.0gr22ay1j849r415qji8i1k2lpsl].[Multiple Values])</cols>
+      </table>
+      <simple-id uuid='{C1F173C7-4338-4E6A-BFA4-296978E1CE39}' />
+    </worksheet>
   </worksheets>
   <dashboards>
     <dashboard name='Dash Board 2'>
@@ -4101,147 +4281,149 @@
       </datasource-dependencies>
       <zones>
         <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='4' w='100000' x='0' y='0'>
-          <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='125' param='horz' w='98400' x='800' y='1000'>
-            <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='122' param='horz' w='98400' x='800' y='1000'>
-              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='119' param='horz' w='98400' x='800' y='1000'>
-                <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='116' param='horz' w='98400' x='800' y='1000'>
-                  <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='114' param='horz' w='98400' x='800' y='1000'>
-                    <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='111' param='horz' w='98400' x='800' y='1000'>
-                      <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='108' param='horz' w='98400' x='800' y='1000'>
-                        <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='104' param='horz' w='98400' x='800' y='1000'>
-                          <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='102' param='horz' w='98400' x='800' y='1000'>
-                            <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='99' param='horz' w='98400' x='800' y='1000'>
-                              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='94' param='horz' w='98400' x='800' y='1000'>
-                                <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='90' param='horz' w='98400' x='800' y='1000'>
-                                  <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='87' param='horz' w='98400' x='800' y='1000'>
-                                    <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='84' param='horz' w='98400' x='800' y='1000'>
-                                      <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='82' param='horz' w='98400' x='800' y='1000'>
-                                        <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='79' param='horz' w='98400' x='800' y='1000'>
-                                          <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='76' param='horz' w='98400' x='800' y='1000'>
-                                            <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='98000' id='74' w='98400' x='800' y='1000'>
-                                              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='67500' id='7' param='horz' w='98400' x='800' y='1000'>
-                                                <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='67500' id='5' w='98400' x='800' y='1000'>
-                                                  <zone h='20489' id='66' name='Age distribution' show-title='false' w='69799' x='800' y='15795'>
-                                                    <zone-style>
-                                                      <format attr='border-color' value='#000000' />
-                                                      <format attr='border-style' value='none' />
-                                                      <format attr='border-width' value='0' />
-                                                      <format attr='margin' value='4' />
-                                                    </zone-style>
-                                                  </zone>
-                                                  <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='20489' id='67' name='Age distribution' pane-specification-id='0' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]' w='11295' x='70599' y='15795'>
-                                                    <zone-style>
-                                                      <format attr='border-color' value='#000000' />
-                                                      <format attr='border-style' value='none' />
-                                                      <format attr='border-width' value='0' />
-                                                      <format attr='margin' value='4' />
-                                                    </zone-style>
-                                                  </zone>
-                                                  <zone h='32216' id='68' name='Status Color' show-title='false' w='28100' x='800' y='36284'>
-                                                    <zone-style>
-                                                      <format attr='border-color' value='#000000' />
-                                                      <format attr='border-style' value='none' />
-                                                      <format attr='border-width' value='0' />
-                                                      <format attr='margin' value='4' />
-                                                    </zone-style>
-                                                  </zone>
-                                                  <zone h='14795' id='72' name='Premium 17/18 - 2' show-title='false' w='81094' x='800' y='1000'>
-                                                    <zone-style>
-                                                      <format attr='border-color' value='#000000' />
-                                                      <format attr='border-style' value='none' />
-                                                      <format attr='border-width' value='0' />
-                                                      <format attr='margin' value='4' />
-                                                    </zone-style>
-                                                  </zone>
-                                                  <zone _.fcp.SetMembershipControl.false...type='filter' _.fcp.SetMembershipControl.true...type-v2='filter' h='19520' id='85' mode='radiolist' name='Premium 17/18 - 2' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]' values='database' w='17306' x='81894' y='36284'>
-                                                    <zone-style>
-                                                      <format attr='border-color' value='#000000' />
-                                                      <format attr='border-style' value='none' />
-                                                      <format attr='border-width' value='0' />
-                                                      <format attr='margin' value='4' />
-                                                    </zone-style>
-                                                  </zone>
-                                                  <zone _.fcp.SetMembershipControl.false...type='filter' _.fcp.SetMembershipControl.true...type-v2='filter' h='20489' id='88' mode='radiolist' name='Premium 17/18 - 2' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:annual_range:nk]' values='database' w='17306' x='81894' y='15795'>
-                                                    <zone-style>
-                                                      <format attr='border-color' value='#000000' />
-                                                      <format attr='border-style' value='none' />
-                                                      <format attr='border-width' value='0' />
-                                                      <format attr='margin' value='4' />
-                                                    </zone-style>
-                                                  </zone>
-                                                  <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='14795' id='91' name='Premium 17/18 - 2' pane-specification-id='0' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_take_up:nk]' w='17306' x='81894' y='1000'>
-                                                    <zone-style>
-                                                      <format attr='border-color' value='#000000' />
-                                                      <format attr='border-style' value='none' />
-                                                      <format attr='border-width' value='0' />
-                                                      <format attr='margin' value='4' />
-                                                    </zone-style>
-                                                  </zone>
-                                                  <zone h='32216' id='96' name='Annual dis' show-title='false' w='25590' x='28900' y='36284'>
-                                                    <zone-style>
-                                                      <format attr='border-color' value='#000000' />
-                                                      <format attr='border-style' value='none' />
-                                                      <format attr='border-width' value='0' />
-                                                      <format attr='margin' value='4' />
-                                                    </zone-style>
-                                                  </zone>
-                                                  <zone h='32216' id='97' name='Premium dis' show-title='false' w='27404' x='54490' y='36284'>
-                                                    <zone-style>
-                                                      <format attr='border-color' value='#000000' />
-                                                      <format attr='border-style' value='none' />
-                                                      <format attr='border-width' value='0' />
-                                                      <format attr='margin' value='4' />
-                                                    </zone-style>
-                                                  </zone>
-                                                  <zone _.fcp.SetMembershipControl.false...type='filter' _.fcp.SetMembershipControl.true...type-v2='filter' h='12696' id='123' mode='radiolist' name='Premium 17/18 - 2' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_percent:nk]' values='database' w='17306' x='81894' y='55804'>
-                                                    <zone-style>
-                                                      <format attr='border-color' value='#000000' />
-                                                      <format attr='border-style' value='none' />
-                                                      <format attr='border-width' value='0' />
-                                                      <format attr='margin' value='4' />
-                                                    </zone-style>
+          <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='129' param='horz' w='98400' x='800' y='1000'>
+            <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='125' param='horz' w='98400' x='800' y='1000'>
+              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='122' param='horz' w='98400' x='800' y='1000'>
+                <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='119' param='horz' w='98400' x='800' y='1000'>
+                  <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='116' param='horz' w='98400' x='800' y='1000'>
+                    <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='114' param='horz' w='98400' x='800' y='1000'>
+                      <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='111' param='horz' w='98400' x='800' y='1000'>
+                        <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='108' param='horz' w='98400' x='800' y='1000'>
+                          <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='104' param='horz' w='98400' x='800' y='1000'>
+                            <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='102' param='horz' w='98400' x='800' y='1000'>
+                              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='99' param='horz' w='98400' x='800' y='1000'>
+                                <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='94' param='horz' w='98400' x='800' y='1000'>
+                                  <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='90' param='horz' w='98400' x='800' y='1000'>
+                                    <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='87' param='horz' w='98400' x='800' y='1000'>
+                                      <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='84' param='horz' w='98400' x='800' y='1000'>
+                                        <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='82' param='horz' w='98400' x='800' y='1000'>
+                                          <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='79' param='horz' w='98400' x='800' y='1000'>
+                                            <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='76' param='horz' w='98400' x='800' y='1000'>
+                                              <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='98000' id='74' w='98400' x='800' y='1000'>
+                                                <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='67500' id='7' param='horz' w='98400' x='800' y='1000'>
+                                                  <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='67500' id='5' w='98400' x='800' y='1000'>
+                                                    <zone h='20489' id='66' name='Age distribution' show-title='false' w='69799' x='800' y='15794'>
+                                                      <zone-style>
+                                                        <format attr='border-color' value='#000000' />
+                                                        <format attr='border-style' value='none' />
+                                                        <format attr='border-width' value='0' />
+                                                        <format attr='margin' value='4' />
+                                                      </zone-style>
+                                                    </zone>
+                                                    <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='20489' id='67' name='Age distribution' pane-specification-id='0' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]' w='11295' x='70599' y='15794'>
+                                                      <zone-style>
+                                                        <format attr='border-color' value='#000000' />
+                                                        <format attr='border-style' value='none' />
+                                                        <format attr='border-width' value='0' />
+                                                        <format attr='margin' value='4' />
+                                                      </zone-style>
+                                                    </zone>
+                                                    <zone h='32217' id='68' name='Status Color' show-title='false' w='28100' x='800' y='36283'>
+                                                      <zone-style>
+                                                        <format attr='border-color' value='#000000' />
+                                                        <format attr='border-style' value='none' />
+                                                        <format attr='border-width' value='0' />
+                                                        <format attr='margin' value='4' />
+                                                      </zone-style>
+                                                    </zone>
+                                                    <zone h='14794' id='72' name='Premium 17/18 - 2' show-title='false' w='81094' x='800' y='1000'>
+                                                      <zone-style>
+                                                        <format attr='border-color' value='#000000' />
+                                                        <format attr='border-style' value='none' />
+                                                        <format attr='border-width' value='0' />
+                                                        <format attr='margin' value='4' />
+                                                      </zone-style>
+                                                    </zone>
+                                                    <zone _.fcp.SetMembershipControl.false...type='filter' _.fcp.SetMembershipControl.true...type-v2='filter' h='19521' id='85' mode='radiolist' name='Premium 17/18 - 2' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]' values='database' w='17306' x='81894' y='36283'>
+                                                      <zone-style>
+                                                        <format attr='border-color' value='#000000' />
+                                                        <format attr='border-style' value='none' />
+                                                        <format attr='border-width' value='0' />
+                                                        <format attr='margin' value='4' />
+                                                      </zone-style>
+                                                    </zone>
+                                                    <zone _.fcp.SetMembershipControl.false...type='filter' _.fcp.SetMembershipControl.true...type-v2='filter' h='20489' id='88' mode='radiolist' name='Premium 17/18 - 2' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:annual_range:nk]' values='database' w='17306' x='81894' y='15794'>
+                                                      <zone-style>
+                                                        <format attr='border-color' value='#000000' />
+                                                        <format attr='border-style' value='none' />
+                                                        <format attr='border-width' value='0' />
+                                                        <format attr='margin' value='4' />
+                                                      </zone-style>
+                                                    </zone>
+                                                    <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='14794' id='91' name='Premium 17/18 - 2' pane-specification-id='0' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_take_up:nk]' w='17306' x='81894' y='1000'>
+                                                      <zone-style>
+                                                        <format attr='border-color' value='#000000' />
+                                                        <format attr='border-style' value='none' />
+                                                        <format attr='border-width' value='0' />
+                                                        <format attr='margin' value='4' />
+                                                      </zone-style>
+                                                    </zone>
+                                                    <zone h='32217' id='96' name='Annual dis' show-title='false' w='25588' x='28900' y='36283'>
+                                                      <zone-style>
+                                                        <format attr='border-color' value='#000000' />
+                                                        <format attr='border-style' value='none' />
+                                                        <format attr='border-width' value='0' />
+                                                        <format attr='margin' value='4' />
+                                                      </zone-style>
+                                                    </zone>
+                                                    <zone h='32217' id='97' name='Premium dis' show-title='false' w='27406' x='54488' y='36283'>
+                                                      <zone-style>
+                                                        <format attr='border-color' value='#000000' />
+                                                        <format attr='border-style' value='none' />
+                                                        <format attr='border-width' value='0' />
+                                                        <format attr='margin' value='4' />
+                                                      </zone-style>
+                                                    </zone>
+                                                    <zone _.fcp.SetMembershipControl.false...type='filter' _.fcp.SetMembershipControl.true...type-v2='filter' h='12696' id='123' mode='radiolist' name='Premium 17/18 - 2' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_percent:nk]' values='database' w='17306' x='81894' y='55804'>
+                                                      <zone-style>
+                                                        <format attr='border-color' value='#000000' />
+                                                        <format attr='border-style' value='none' />
+                                                        <format attr='border-width' value='0' />
+                                                        <format attr='margin' value='4' />
+                                                      </zone-style>
+                                                    </zone>
                                                   </zone>
                                                 </zone>
-                                              </zone>
-                                              <zone h='30500' id='92' name='Prod 17/18 - 2' show-title='false' w='51196' x='800' y='68500'>
-                                                <zone-style>
-                                                  <format attr='border-color' value='#000000' />
-                                                  <format attr='border-style' value='none' />
-                                                  <format attr='border-width' value='0' />
-                                                  <format attr='margin' value='4' />
-                                                </zone-style>
-                                              </zone>
-                                              <zone _.fcp.SetMembershipControl.false...type='filter' _.fcp.SetMembershipControl.true...type-v2='filter' h='10625' id='100' mode='radiolist' name='Premium 17/18 - 2' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_take_up:nk]' values='database' w='15737' x='83463' y='68500'>
-                                                <zone-style>
-                                                  <format attr='border-color' value='#000000' />
-                                                  <format attr='border-style' value='none' />
-                                                  <format attr='border-width' value='0' />
-                                                  <format attr='margin' value='4' />
-                                                </zone-style>
-                                              </zone>
-                                              <zone h='30500' id='112' name='Risk bubble - 2' show-title='false' w='21500' x='51996' y='68500'>
-                                                <zone-style>
-                                                  <format attr='border-color' value='#000000' />
-                                                  <format attr='border-style' value='none' />
-                                                  <format attr='border-width' value='0' />
-                                                  <format attr='margin' value='4' />
-                                                </zone-style>
-                                              </zone>
-                                              <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='30500' id='117' name='Risk bubble - 2' pane-specification-id='0' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:risk_level:nk]' w='9967' x='73496' y='68500'>
-                                                <zone-style>
-                                                  <format attr='border-color' value='#000000' />
-                                                  <format attr='border-style' value='none' />
-                                                  <format attr='border-width' value='0' />
-                                                  <format attr='margin' value='4' />
-                                                </zone-style>
-                                              </zone>
-                                              <zone _.fcp.SetMembershipControl.false...type='filter' _.fcp.SetMembershipControl.true...type-v2='filter' h='19875' id='126' mode='radiolist' name='Premium 17/18 - 2' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:risk_level:nk]' values='database' w='15737' x='83463' y='79125'>
-                                                <zone-style>
-                                                  <format attr='border-color' value='#000000' />
-                                                  <format attr='border-style' value='none' />
-                                                  <format attr='border-width' value='0' />
-                                                  <format attr='margin' value='4' />
-                                                </zone-style>
+                                                <zone h='30500' id='92' name='Prod 17/18 - 2' show-title='false' w='51195' x='800' y='68500'>
+                                                  <zone-style>
+                                                    <format attr='border-color' value='#000000' />
+                                                    <format attr='border-style' value='none' />
+                                                    <format attr='border-width' value='0' />
+                                                    <format attr='margin' value='4' />
+                                                  </zone-style>
+                                                </zone>
+                                                <zone _.fcp.SetMembershipControl.false...type='filter' _.fcp.SetMembershipControl.true...type-v2='filter' h='10624' id='100' mode='radiolist' name='Premium 17/18 - 2' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_take_up:nk]' values='database' w='15739' x='83461' y='68500'>
+                                                  <zone-style>
+                                                    <format attr='border-color' value='#000000' />
+                                                    <format attr='border-style' value='none' />
+                                                    <format attr='border-width' value='0' />
+                                                    <format attr='margin' value='4' />
+                                                  </zone-style>
+                                                </zone>
+                                                <zone h='30500' id='112' name='Risk bubble - 2' show-title='false' w='21500' x='51995' y='68500'>
+                                                  <zone-style>
+                                                    <format attr='border-color' value='#000000' />
+                                                    <format attr='border-style' value='none' />
+                                                    <format attr='border-width' value='0' />
+                                                    <format attr='margin' value='4' />
+                                                  </zone-style>
+                                                </zone>
+                                                <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='30500' id='117' name='Risk bubble - 2' pane-specification-id='0' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:risk_level:nk]' w='9966' x='73495' y='68500'>
+                                                  <zone-style>
+                                                    <format attr='border-color' value='#000000' />
+                                                    <format attr='border-style' value='none' />
+                                                    <format attr='border-width' value='0' />
+                                                    <format attr='margin' value='4' />
+                                                  </zone-style>
+                                                </zone>
+                                                <zone _.fcp.SetMembershipControl.false...type='filter' _.fcp.SetMembershipControl.true...type-v2='filter' h='19876' id='126' mode='radiolist' name='Premium 17/18 - 2' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:risk_level:nk]' values='database' w='15739' x='83461' y='79124'>
+                                                  <zone-style>
+                                                    <format attr='border-color' value='#000000' />
+                                                    <format attr='border-style' value='none' />
+                                                    <format attr='border-width' value='0' />
+                                                    <format attr='margin' value='4' />
+                                                  </zone-style>
+                                                </zone>
                                               </zone>
                                             </zone>
                                           </zone>
@@ -4276,6 +4458,208 @@
         </devicelayout>
       </devicelayouts>
       <simple-id uuid='{A97560DD-8CA2-4924-AA5D-58CBE9A39165}' />
+    </dashboard>
+    <dashboard name='Dash Board 3'>
+      <style />
+      <size maxheight='800' maxwidth='1000' minheight='800' minwidth='1000' />
+      <datasources>
+        <datasource caption='defined_Data_Phoenix_Campaign_Enhancement' name='federated.0gr22ay1j849r415qji8i1k2lpsl' />
+      </datasources>
+      <datasource-dependencies datasource='federated.0gr22ay1j849r415qji8i1k2lpsl'>
+        <column caption='Annual Range' datatype='string' name='[annual_range]' role='dimension' type='nominal' />
+        <column caption='Campaign Offer Percent' datatype='string' name='[campaign_offer_percent]' role='dimension' type='nominal' />
+        <column caption='Campaign Offer Product' datatype='string' name='[campaign_offer_product]' role='dimension' type='nominal' />
+        <column caption='Campaign Take Up' datatype='string' name='[campaign_take_up]' role='dimension' type='nominal' />
+        <column-instance column='[annual_range]' derivation='None' name='[none:annual_range:nk]' pivot='key' type='nominal' />
+        <column-instance column='[campaign_offer_percent]' derivation='None' name='[none:campaign_offer_percent:nk]' pivot='key' type='nominal' />
+        <column-instance column='[campaign_offer_product]' derivation='None' name='[none:campaign_offer_product:nk]' pivot='key' type='nominal' />
+        <column-instance column='[campaign_take_up]' derivation='None' name='[none:campaign_take_up:nk]' pivot='key' type='nominal' />
+        <column-instance column='[risk_level]' derivation='None' name='[none:risk_level:nk]' pivot='key' type='nominal' />
+        <column caption='Risk Level' datatype='string' name='[risk_level]' role='dimension' type='nominal' />
+      </datasource-dependencies>
+      <zones>
+        <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='4' w='100000' x='0' y='0'>
+          <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='136' param='horz' w='98400' x='800' y='1000'>
+            <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='133' param='horz' w='98400' x='800' y='1000'>
+              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='129' param='horz' w='98400' x='800' y='1000'>
+                <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='125' param='horz' w='98400' x='800' y='1000'>
+                  <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='122' param='horz' w='98400' x='800' y='1000'>
+                    <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='119' param='horz' w='98400' x='800' y='1000'>
+                      <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='116' param='horz' w='98400' x='800' y='1000'>
+                        <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='114' param='horz' w='98400' x='800' y='1000'>
+                          <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='111' param='horz' w='98400' x='800' y='1000'>
+                            <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='108' param='horz' w='98400' x='800' y='1000'>
+                              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='104' param='horz' w='98400' x='800' y='1000'>
+                                <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='102' param='horz' w='98400' x='800' y='1000'>
+                                  <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='99' param='horz' w='98400' x='800' y='1000'>
+                                    <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='94' param='horz' w='98400' x='800' y='1000'>
+                                      <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='90' param='horz' w='98400' x='800' y='1000'>
+                                        <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='87' param='horz' w='98400' x='800' y='1000'>
+                                          <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='84' param='horz' w='98400' x='800' y='1000'>
+                                            <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='82' param='horz' w='98400' x='800' y='1000'>
+                                              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='79' param='horz' w='98400' x='800' y='1000'>
+                                                <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='76' param='horz' w='98400' x='800' y='1000'>
+                                                  <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='98000' id='74' w='98400' x='800' y='1000'>
+                                                    <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='68000' id='7' param='horz' w='98400' x='800' y='1000'>
+                                                      <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='68000' id='5' w='98400' x='800' y='1000'>
+                                                        <zone h='20638' id='66' name='Age distribution' show-title='false' w='69799' x='800' y='15903'>
+                                                          <zone-style>
+                                                            <format attr='border-color' value='#000000' />
+                                                            <format attr='border-style' value='none' />
+                                                            <format attr='border-width' value='0' />
+                                                            <format attr='margin' value='4' />
+                                                          </zone-style>
+                                                        </zone>
+                                                        <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='20638' id='67' name='Age distribution' pane-specification-id='0' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]' w='11295' x='70599' y='15903'>
+                                                          <zone-style>
+                                                            <format attr='border-color' value='#000000' />
+                                                            <format attr='border-style' value='none' />
+                                                            <format attr='border-width' value='0' />
+                                                            <format attr='margin' value='4' />
+                                                          </zone-style>
+                                                        </zone>
+                                                        <zone h='32459' id='68' name='Status Color' show-title='false' w='30330' x='800' y='36541'>
+                                                          <zone-style>
+                                                            <format attr='border-color' value='#000000' />
+                                                            <format attr='border-style' value='none' />
+                                                            <format attr='border-width' value='0' />
+                                                            <format attr='margin' value='4' />
+                                                          </zone-style>
+                                                        </zone>
+                                                        <zone h='14903' id='72' name='Premium 17/18 - 2' show-title='false' w='81094' x='800' y='1000'>
+                                                          <zone-style>
+                                                            <format attr='border-color' value='#000000' />
+                                                            <format attr='border-style' value='none' />
+                                                            <format attr='border-width' value='0' />
+                                                            <format attr='margin' value='4' />
+                                                          </zone-style>
+                                                        </zone>
+                                                        <zone _.fcp.SetMembershipControl.false...type='filter' _.fcp.SetMembershipControl.true...type-v2='filter' h='21640' id='85' mode='radiolist' name='Premium 17/18 - 2' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]' values='database' w='17306' x='81894' y='36541'>
+                                                          <zone-style>
+                                                            <format attr='border-color' value='#000000' />
+                                                            <format attr='border-style' value='none' />
+                                                            <format attr='border-width' value='0' />
+                                                            <format attr='margin' value='4' />
+                                                          </zone-style>
+                                                        </zone>
+                                                        <zone _.fcp.SetMembershipControl.false...type='filter' _.fcp.SetMembershipControl.true...type-v2='filter' h='20638' id='88' mode='radiolist' name='Premium 17/18 - 2' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:annual_range:nk]' values='database' w='17306' x='81894' y='15903'>
+                                                          <zone-style>
+                                                            <format attr='border-color' value='#000000' />
+                                                            <format attr='border-style' value='none' />
+                                                            <format attr='border-width' value='0' />
+                                                            <format attr='margin' value='4' />
+                                                          </zone-style>
+                                                        </zone>
+                                                        <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='14903' id='91' name='Premium 17/18 - 2' pane-specification-id='0' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_take_up:nk]' w='17306' x='81894' y='1000'>
+                                                          <zone-style>
+                                                            <format attr='border-color' value='#000000' />
+                                                            <format attr='border-style' value='none' />
+                                                            <format attr='border-width' value='0' />
+                                                            <format attr='margin' value='4' />
+                                                          </zone-style>
+                                                        </zone>
+                                                        <zone _.fcp.SetMembershipControl.false...type='filter' _.fcp.SetMembershipControl.true...type-v2='filter' h='10819' id='123' mode='radiolist' name='Premium 17/18 - 2' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_percent:nk]' values='database' w='17306' x='81894' y='58181'>
+                                                          <zone-style>
+                                                            <format attr='border-color' value='#000000' />
+                                                            <format attr='border-style' value='none' />
+                                                            <format attr='border-width' value='0' />
+                                                            <format attr='margin' value='4' />
+                                                          </zone-style>
+                                                        </zone>
+                                                        <zone h='32459' id='130' name='product holding' show-title='false' w='50764' x='31130' y='36541'>
+                                                          <zone-style>
+                                                            <format attr='border-color' value='#000000' />
+                                                            <format attr='border-style' value='none' />
+                                                            <format attr='border-width' value='0' />
+                                                            <format attr='margin' value='4' />
+                                                          </zone-style>
+                                                        </zone>
+                                                      </zone>
+                                                    </zone>
+                                                    <zone _.fcp.SetMembershipControl.false...type='filter' _.fcp.SetMembershipControl.true...type-v2='filter' h='10122' id='100' mode='radiolist' name='Premium 17/18 - 2' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_take_up:nk]' values='database' w='15742' x='83458' y='69000'>
+                                                      <zone-style>
+                                                        <format attr='border-color' value='#000000' />
+                                                        <format attr='border-style' value='none' />
+                                                        <format attr='border-width' value='0' />
+                                                        <format attr='margin' value='4' />
+                                                      </zone-style>
+                                                    </zone>
+                                                    <zone h='30000' id='112' name='Risk bubble - 2' show-title='false' w='27027' x='38773' y='69000'>
+                                                      <zone-style>
+                                                        <format attr='border-color' value='#000000' />
+                                                        <format attr='border-style' value='none' />
+                                                        <format attr='border-width' value='0' />
+                                                        <format attr='margin' value='4' />
+                                                      </zone-style>
+                                                    </zone>
+                                                    <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='30000' id='117' name='Risk bubble - 2' pane-specification-id='0' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:risk_level:nk]' w='17658' x='65800' y='69000'>
+                                                      <zone-style>
+                                                        <format attr='border-color' value='#000000' />
+                                                        <format attr='border-style' value='none' />
+                                                        <format attr='border-width' value='0' />
+                                                        <format attr='margin' value='4' />
+                                                      </zone-style>
+                                                    </zone>
+                                                    <zone _.fcp.SetMembershipControl.false...type='filter' _.fcp.SetMembershipControl.true...type-v2='filter' h='19878' id='126' mode='radiolist' name='Premium 17/18 - 2' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:risk_level:nk]' values='database' w='15742' x='83458' y='79122'>
+                                                      <zone-style>
+                                                        <format attr='border-color' value='#000000' />
+                                                        <format attr='border-style' value='none' />
+                                                        <format attr='border-width' value='0' />
+                                                        <format attr='margin' value='4' />
+                                                      </zone-style>
+                                                    </zone>
+                                                    <zone h='30000' id='131' name='Enhancement 17/18' show-title='false' w='26599' x='800' y='69000'>
+                                                      <zone-style>
+                                                        <format attr='border-color' value='#000000' />
+                                                        <format attr='border-style' value='none' />
+                                                        <format attr='border-width' value='0' />
+                                                        <format attr='margin' value='4' />
+                                                      </zone-style>
+                                                    </zone>
+                                                    <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='30000' id='134' name='Enhancement 17/18' pane-specification-id='0' param='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:is_holding:nk]' w='11374' x='27399' y='69000'>
+                                                      <zone-style>
+                                                        <format attr='border-color' value='#000000' />
+                                                        <format attr='border-style' value='none' />
+                                                        <format attr='border-width' value='0' />
+                                                        <format attr='margin' value='4' />
+                                                      </zone-style>
+                                                    </zone>
+                                                  </zone>
+                                                </zone>
+                                              </zone>
+                                            </zone>
+                                          </zone>
+                                        </zone>
+                                      </zone>
+                                    </zone>
+                                  </zone>
+                                </zone>
+                              </zone>
+                            </zone>
+                          </zone>
+                        </zone>
+                      </zone>
+                    </zone>
+                  </zone>
+                </zone>
+              </zone>
+            </zone>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+          </zone-style>
+        </zone>
+      </zones>
+      <devicelayouts>
+        <devicelayout name='Phone'>
+          <size maxheight='1600' minheight='1600' sizing-mode='vscroll' />
+          <zones />
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{5793A08B-FFD4-4100-8B5F-8350A407C395}' />
     </dashboard>
     <dashboard name='Dashboard 1'>
       <style />
@@ -4532,7 +4916,7 @@
           <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98340' id='1' param='vert' removable='false' w='98426' x='787' y='830'>
             <zone _.fcp.SetMembershipControl.false...type='flipboard-nav' _.fcp.SetMembershipControl.true...type-v2='flipboard-nav' h='10477' id='4' is-fixed='true' paired-zone-id='5' removable='false' w='98426' x='787' y='830' />
             <zone _.fcp.SetMembershipControl.false...type='flipboard' _.fcp.SetMembershipControl.true...type-v2='flipboard' h='87863' id='5' paired-zone-id='4' removable='false' w='98426' x='787' y='11307'>
-              <flipboard active-id='3' nav-type='caption' show-nav-arrows='true'>
+              <flipboard active-id='7' nav-type='caption' show-nav-arrows='true'>
                 <story-points>
                   <story-point caption='Overall' captured-sheet='Dashboard 1' id='3'>
                     <capturedDeltas>
@@ -4562,26 +4946,17 @@
                             <groupfilter function='level-members' level='[risk_level]' />
                           </groupfilter>
                         </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]'>
-                          <groupfilter function='member' level='[none:age_range:nk]' member='&quot;1-18&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
-                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;A1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:cus_marital_status:nk]'>
-                          <groupfilter function='member' level='[none:cus_marital_status:nk]' member='&quot;00 NA&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
                       </worksheet>
                       <worksheet name='Premium 17/18'>
                         <datasource-dependencies datasource='federated.0gr22ay1j849r415qji8i1k2lpsl'>
-                          <column caption='Offer Score' datatype='real' name='[offer_score]' role='measure' type='quantitative' />
+                          <column caption='Action (YEAR(Campaign Offer Date),Campaign Offer Product)' datatype='tuple' hidden='true' name='[Action (YEAR(Campaign Offer Date),Campaign Offer Product)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
                           <column aggregation='None' datatype='integer' name='[Offer Score (bin)]' role='dimension' type='quantitative'>
                             <calculation class='bin' decimals='0' formula='[offer_score]' peg='0' size='3.3' />
                           </column>
-                          <column caption='Action (YEAR(Campaign Offer Date),Risk Level)' datatype='tuple' hidden='true' name='[Action (YEAR(Campaign Offer Date),Risk Level)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
                           <column caption='Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)' datatype='tuple' hidden='true' name='[Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
+                          <column caption='Offer Score' datatype='real' name='[offer_score]' role='measure' type='quantitative' />
                           <column caption='Action (Offer Score (bin),risk_level)' datatype='tuple' hidden='true' name='[Action (Offer Score (bin),risk_level)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
-                          <column caption='Action (YEAR(Campaign Offer Date),Campaign Offer Product)' datatype='tuple' hidden='true' name='[Action (YEAR(Campaign Offer Date),Campaign Offer Product)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
+                          <column caption='Action (YEAR(Campaign Offer Date),Risk Level)' datatype='tuple' hidden='true' name='[Action (YEAR(Campaign Offer Date),Risk Level)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
                           <column-instance column='[Offer Score (bin)]' derivation='None' name='[none:Offer Score (bin):ok]' pivot='key' type='ordinal' />
                         </datasource-dependencies>
                         <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)]'>
@@ -4609,15 +4984,6 @@
                             <groupfilter function='level-members' level='[risk_level]' />
                           </groupfilter>
                         </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]'>
-                          <groupfilter function='member' level='[none:age_range:nk]' member='&quot;1-18&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
-                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;A1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:cus_marital_status:nk]'>
-                          <groupfilter function='member' level='[none:cus_marital_status:nk]' member='&quot;00 NA&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
                       </worksheet>
                       <worksheet name='Prod 17/18'>
                         <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (Offer Score (bin),risk_level)]'>
@@ -4632,23 +4998,14 @@
                             <groupfilter function='level-members' level='[risk_level]' />
                           </groupfilter>
                         </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]'>
-                          <groupfilter function='member' level='[none:age_range:nk]' member='&quot;1-18&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
-                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;A1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:cus_marital_status:nk]'>
-                          <groupfilter function='member' level='[none:cus_marital_status:nk]' member='&quot;00 NA&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
                       </worksheet>
                       <worksheet name='Risk bubble - 1'>
                         <datasource-dependencies datasource='federated.0gr22ay1j849r415qji8i1k2lpsl'>
-                          <column caption='Offer Score' datatype='real' name='[offer_score]' role='measure' type='quantitative' />
                           <column aggregation='None' datatype='integer' name='[Offer Score (bin)]' role='dimension' type='quantitative'>
                             <calculation class='bin' decimals='0' formula='[offer_score]' peg='0' size='3.3' />
                           </column>
                           <column caption='Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)' datatype='tuple' hidden='true' name='[Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
+                          <column caption='Offer Score' datatype='real' name='[offer_score]' role='measure' type='quantitative' />
                           <column-instance column='[Offer Score (bin)]' derivation='None' name='[none:Offer Score (bin):ok]' pivot='key' type='ordinal' />
                         </datasource-dependencies>
                         <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)]'>
@@ -4664,15 +5021,6 @@
                             <groupfilter function='level-members' level='[campaign_offer_percent]' />
                             <groupfilter function='level-members' level='[campaign_take_up]' />
                           </groupfilter>
-                        </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]'>
-                          <groupfilter function='member' level='[none:age_range:nk]' member='&quot;1-18&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
-                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;A1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:cus_marital_status:nk]'>
-                          <groupfilter function='member' level='[none:cus_marital_status:nk]' member='&quot;00 NA&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
                         </filter>
                       </worksheet>
                       <worksheet name='Risk dist 1'>
@@ -4717,8 +5065,8 @@
                       </worksheet>
                       <worksheet name='Score dis 17/18'>
                         <datasource-dependencies datasource='federated.0gr22ay1j849r415qji8i1k2lpsl'>
-                          <column caption='Action (YEAR(Campaign Offer Date),Risk Level)' datatype='tuple' hidden='true' name='[Action (YEAR(Campaign Offer Date),Risk Level)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
                           <column caption='Action (Offer Score (bin),risk_level)' datatype='tuple' hidden='true' name='[Action (Offer Score (bin),risk_level)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
+                          <column caption='Action (YEAR(Campaign Offer Date),Risk Level)' datatype='tuple' hidden='true' name='[Action (YEAR(Campaign Offer Date),Risk Level)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
                           <column-instance column='[Offer Score (bin)]' derivation='None' name='[none:Offer Score (bin):ok]' pivot='key' type='ordinal' />
                         </datasource-dependencies>
                         <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (Offer Score (bin),risk_level)]'>
@@ -4740,15 +5088,6 @@
                             <groupfilter function='level-members' level='[risk_level]' />
                           </groupfilter>
                         </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]'>
-                          <groupfilter function='member' level='[none:age_range:nk]' member='&quot;1-18&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
-                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;A1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:cus_marital_status:nk]'>
-                          <groupfilter function='member' level='[none:cus_marital_status:nk]' member='&quot;00 NA&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
                       </worksheet>
                       <worksheet name='Y - 2017 (10%)'>
                         <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (Offer Score (bin),risk_level)]'>
@@ -4769,15 +5108,6 @@
                             <groupfilter function='level-members' level='[risk_level]' />
                           </groupfilter>
                         </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]'>
-                          <groupfilter function='member' level='[none:age_range:nk]' member='&quot;1-18&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
-                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;A1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:cus_marital_status:nk]'>
-                          <groupfilter function='member' level='[none:cus_marital_status:nk]' member='&quot;00 NA&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
                       </worksheet>
                       <worksheet name='Y - 2018 (15%)'>
                         <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (Offer Score (bin),risk_level)]'>
@@ -4797,15 +5127,6 @@
                             <groupfilter function='level-members' level='[yr:campaign_offer_date:ok]' />
                             <groupfilter function='level-members' level='[risk_level]' />
                           </groupfilter>
-                        </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:age_range:nk]'>
-                          <groupfilter function='member' level='[none:age_range:nk]' member='&quot;1-18&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
-                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;A1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-                        </filter>
-                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:cus_marital_status:nk]'>
-                          <groupfilter function='member' level='[none:cus_marital_status:nk]' member='&quot;00 NA&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
                         </filter>
                       </worksheet>
                     </capturedDeltas>
@@ -4940,6 +5261,180 @@
                         <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (risk_level)]'>
                           <groupfilter function='level-members' level='[risk_level]' user:ui-enumeration='all' user:ui-marker='enumerate' />
                         </filter>
+                      </worksheet>
+                    </capturedDeltas>
+                  </story-point>
+                  <story-point caption='Product Holdings' captured-sheet='Dash Board 3' id='7'>
+                    <currentDeltas>
+                      <worksheet name='Age distribution'>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (Cus Marital Status)]'>
+                          <groupfilter function='level-members' level='[cus_marital_status]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (YEAR(Campaign Offer Date),Is Holding)]'>
+                          <groupfilter function='crossjoin' user:ui-enumeration='all' user:ui-marker='enumerate'>
+                            <groupfilter function='level-members' level='[yr:campaign_offer_date:ok]' />
+                            <groupfilter function='level-members' level='[is_holding]' />
+                          </groupfilter>
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:annual_range:nk]'>
+                          <groupfilter function='member' level='[none:annual_range:nk]' member='&quot;1-60,000&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
+                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;E1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_take_up:nk]'>
+                          <groupfilter function='member' level='[none:campaign_take_up:nk]' member='&quot;Y&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:risk_level:nk]'>
+                          <groupfilter function='member' level='[none:risk_level:nk]' member='&quot;Risk&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                      </worksheet>
+                      <worksheet name='Enhancement 17/18'>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (Cus Marital Status)]'>
+                          <groupfilter function='level-members' level='[cus_marital_status]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:annual_range:nk]'>
+                          <groupfilter function='member' level='[none:annual_range:nk]' member='&quot;1-60,000&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
+                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;E1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_take_up:nk]'>
+                          <groupfilter function='member' level='[none:campaign_take_up:nk]' member='&quot;Y&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:risk_level:nk]'>
+                          <groupfilter function='member' level='[none:risk_level:nk]' member='&quot;Risk&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <selection-collection>
+                          <tuple-selection>
+                            <tuple-reference>
+                              <tuple-descriptor>
+                                <pane-descriptor>
+                                  <x-fields />
+                                  <y-fields>
+                                    <field>[federated.0gr22ay1j849r415qji8i1k2lpsl].[yr:campaign_offer_date:ok]</field>
+                                  </y-fields>
+                                </pane-descriptor>
+                                <columns>
+                                  <field>[federated.0gr22ay1j849r415qji8i1k2lpsl].[cnt:is_holding:qk]</field>
+                                  <field>[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:is_holding:nk]</field>
+                                  <field>[federated.0gr22ay1j849r415qji8i1k2lpsl].[yr:campaign_offer_date:ok]</field>
+                                </columns>
+                              </tuple-descriptor>
+                              <tuple>
+                                <value>44</value>
+                                <value>false</value>
+                                <value>2018</value>
+                              </tuple>
+                            </tuple-reference>
+                          </tuple-selection>
+                        </selection-collection>
+                      </worksheet>
+                      <worksheet name='Premium 17/18 - 2'>
+                        <filter column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (Campaign Premium (bin),age_range)]' delta-type='removed' />
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (Cus Marital Status)]'>
+                          <groupfilter function='level-members' level='[cus_marital_status]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (Customer Age (bin),age_range,Customer Gender)]' delta-type='removed' />
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (YEAR(Campaign Offer Date),Is Holding)]'>
+                          <groupfilter function='crossjoin' user:ui-enumeration='all' user:ui-marker='enumerate'>
+                            <groupfilter function='level-members' level='[yr:campaign_offer_date:ok]' />
+                            <groupfilter function='level-members' level='[is_holding]' />
+                          </groupfilter>
+                        </filter>
+                        <filter column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (YEAR(Campaign Offer Date),Risk Level)]' delta-type='removed' />
+                        <filter column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (age_range,YEAR(Campaign Offer Date))]' delta-type='removed' />
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:annual_range:nk]'>
+                          <groupfilter function='member' level='[none:annual_range:nk]' member='&quot;1-60,000&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
+                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;E1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_take_up:nk]'>
+                          <groupfilter function='member' level='[none:campaign_take_up:nk]' member='&quot;Y&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:risk_level:nk]'>
+                          <groupfilter function='member' level='[none:risk_level:nk]' member='&quot;Risk&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                      </worksheet>
+                      <worksheet name='Risk bubble - 2'>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (Cus Marital Status)]'>
+                          <groupfilter function='level-members' level='[cus_marital_status]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (YEAR(Campaign Offer Date),Is Holding)]'>
+                          <groupfilter function='crossjoin' user:ui-enumeration='all' user:ui-marker='enumerate'>
+                            <groupfilter function='level-members' level='[yr:campaign_offer_date:ok]' />
+                            <groupfilter function='level-members' level='[is_holding]' />
+                          </groupfilter>
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:annual_range:nk]'>
+                          <groupfilter function='member' level='[none:annual_range:nk]' member='&quot;1-60,000&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
+                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;E1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_take_up:nk]'>
+                          <groupfilter function='member' level='[none:campaign_take_up:nk]' member='&quot;Y&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:risk_level:nk]'>
+                          <groupfilter function='member' level='[none:risk_level:nk]' member='&quot;Risk&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <selection-collection />
+                      </worksheet>
+                      <worksheet name='Status Color'>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (YEAR(Campaign Offer Date),Is Holding)]'>
+                          <groupfilter function='crossjoin' user:ui-enumeration='all' user:ui-marker='enumerate'>
+                            <groupfilter function='level-members' level='[yr:campaign_offer_date:ok]' />
+                            <groupfilter function='level-members' level='[is_holding]' />
+                          </groupfilter>
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:annual_range:nk]'>
+                          <groupfilter function='member' level='[none:annual_range:nk]' member='&quot;1-60,000&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
+                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;E1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_take_up:nk]'>
+                          <groupfilter function='member' level='[none:campaign_take_up:nk]' member='&quot;Y&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:risk_level:nk]'>
+                          <groupfilter function='member' level='[none:risk_level:nk]' member='&quot;Risk&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                      </worksheet>
+                      <worksheet name='product holding'>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (Cus Marital Status)]'>
+                          <groupfilter function='level-members' level='[cus_marital_status]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (YEAR(Campaign Offer Date),Is Holding)]'>
+                          <groupfilter function='crossjoin' user:ui-enumeration='all' user:ui-marker='enumerate'>
+                            <groupfilter function='level-members' level='[yr:campaign_offer_date:ok]' />
+                            <groupfilter function='level-members' level='[is_holding]' />
+                          </groupfilter>
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (YEAR(Campaign Offer Date),Risk Level)]'>
+                          <groupfilter function='crossjoin' user:ui-action-filter='[Action13]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+                            <groupfilter function='level-members' level='[yr:campaign_offer_date:ok]' />
+                            <groupfilter function='level-members' level='[risk_level]' />
+                          </groupfilter>
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:annual_range:nk]'>
+                          <groupfilter function='member' level='[none:annual_range:nk]' member='&quot;1-60,000&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_offer_product:nk]'>
+                          <groupfilter function='member' level='[none:campaign_offer_product:nk]' member='&quot;E1&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:campaign_take_up:nk]'>
+                          <groupfilter function='member' level='[none:campaign_take_up:nk]' member='&quot;Y&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                        <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[none:risk_level:nk]'>
+                          <groupfilter function='member' level='[none:risk_level:nk]' member='&quot;Risk&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+                        </filter>
+                      </worksheet>
+                    </currentDeltas>
+                    <capturedDeltas>
+                      <worksheet name='Premium 17/18 - 2'>
+                        <filter column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (YEAR(Campaign Offer Date),Risk Level)]' delta-type='removed' />
+                        <selection-collection />
                       </worksheet>
                     </capturedDeltas>
                   </story-point>
@@ -5317,9 +5812,24 @@
         <viewpoint name='Risk bubble - 2' />
         <viewpoint name='Status Color' />
       </viewpoints>
-      <active id='4' />
+      <active id='-1' />
       <device-preview visible='true' />
       <simple-id uuid='{5577DA1A-CC1D-40F2-8462-E61C0874F0D2}' />
+    </window>
+    <window class='dashboard' name='Dash Board 3'>
+      <viewpoints>
+        <viewpoint name='Age distribution'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Enhancement 17/18' />
+        <viewpoint name='Premium 17/18 - 2' />
+        <viewpoint name='Risk bubble - 2' />
+        <viewpoint name='Status Color' />
+        <viewpoint name='product holding' />
+      </viewpoints>
+      <active id='4' />
+      <device-preview visible='true' />
+      <simple-id uuid='{F1E04053-B59C-4B22-921D-BA7A41821D2D}' />
     </window>
     <window class='worksheet' name='Prod 17/18'>
       <cards>
@@ -5768,6 +6278,27 @@
         </edge>
       </cards>
       <simple-id uuid='{704381EA-062F-485B-9520-9DA29DF4E52B}' />
+    </window>
+    <window class='worksheet' name='product holding'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{60707E68-EF61-41B4-A93E-7F99F4D4831B}' />
     </window>
   </windows>
 </workbook>
