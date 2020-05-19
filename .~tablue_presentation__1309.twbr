@@ -4949,14 +4949,14 @@
                       </worksheet>
                       <worksheet name='Premium 17/18'>
                         <datasource-dependencies datasource='federated.0gr22ay1j849r415qji8i1k2lpsl'>
+                          <column caption='Action (YEAR(Campaign Offer Date),Campaign Offer Product)' datatype='tuple' hidden='true' name='[Action (YEAR(Campaign Offer Date),Campaign Offer Product)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
+                          <column caption='Action (Offer Score (bin),risk_level)' datatype='tuple' hidden='true' name='[Action (Offer Score (bin),risk_level)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
+                          <column caption='Action (YEAR(Campaign Offer Date),Risk Level)' datatype='tuple' hidden='true' name='[Action (YEAR(Campaign Offer Date),Risk Level)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
+                          <column caption='Offer Score' datatype='real' name='[offer_score]' role='measure' type='quantitative' />
                           <column aggregation='None' datatype='integer' name='[Offer Score (bin)]' role='dimension' type='quantitative'>
                             <calculation class='bin' decimals='0' formula='[offer_score]' peg='0' size='3.3' />
                           </column>
-                          <column caption='Offer Score' datatype='real' name='[offer_score]' role='measure' type='quantitative' />
                           <column caption='Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)' datatype='tuple' hidden='true' name='[Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
-                          <column caption='Action (Offer Score (bin),risk_level)' datatype='tuple' hidden='true' name='[Action (Offer Score (bin),risk_level)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
-                          <column caption='Action (YEAR(Campaign Offer Date),Risk Level)' datatype='tuple' hidden='true' name='[Action (YEAR(Campaign Offer Date),Risk Level)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
-                          <column caption='Action (YEAR(Campaign Offer Date),Campaign Offer Product)' datatype='tuple' hidden='true' name='[Action (YEAR(Campaign Offer Date),Campaign Offer Product)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
                           <column-instance column='[Offer Score (bin)]' derivation='None' name='[none:Offer Score (bin):ok]' pivot='key' type='ordinal' />
                         </datasource-dependencies>
                         <filter class='categorical' column='[federated.0gr22ay1j849r415qji8i1k2lpsl].[Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)]'>
@@ -5001,10 +5001,10 @@
                       </worksheet>
                       <worksheet name='Risk bubble - 1'>
                         <datasource-dependencies datasource='federated.0gr22ay1j849r415qji8i1k2lpsl'>
+                          <column caption='Offer Score' datatype='real' name='[offer_score]' role='measure' type='quantitative' />
                           <column aggregation='None' datatype='integer' name='[Offer Score (bin)]' role='dimension' type='quantitative'>
                             <calculation class='bin' decimals='0' formula='[offer_score]' peg='0' size='3.3' />
                           </column>
-                          <column caption='Offer Score' datatype='real' name='[offer_score]' role='measure' type='quantitative' />
                           <column caption='Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)' datatype='tuple' hidden='true' name='[Action (Offer Score (bin),YEAR(Campaign Offer Date),Campaign Take Up)]' role='dimension' type='nominal' user:auto-column='sheet_link' />
                           <column-instance column='[Offer Score (bin)]' derivation='None' name='[none:Offer Score (bin):ok]' pivot='key' type='ordinal' />
                         </datasource-dependencies>
